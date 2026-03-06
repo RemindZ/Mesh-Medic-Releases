@@ -103,18 +103,6 @@ In **interactive mode** (double-click launch), you also get:
 - Windows 10 (build 19041 or later)
 - .NET 8.0 runtime (included in the self-contained release)
 
-## Building from Source
-
-```
-dotnet publish MeshRepair/MeshRepair.csproj -c Release -r win-x64 --self-contained
-```
-
-The output exe will be in `MeshRepair/bin/Release/net8.0-windows10.0.19041.0/win-x64/publish/`.
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for release notes.
-
 ---
 
 *With love by [remerlinds.com](https://remerlinds.com)*
