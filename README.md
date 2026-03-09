@@ -4,7 +4,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/RemindZ/Mesh-Medic-Releases?style=for-the-badge&logo=github&label=Latest%20Release&color=green)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)
 [![VirusTotal Scan](https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=for-the-badge&logo=virustotal)](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection)
 
-A Windows tool that batch-repairs 3D printing STL files using the same repair engine as **Windows 3D Builder**. Files are repaired in-place with automatic backup safety.
+A Windows tool that batch-repairs 3D printing STL files using two repair engines: **geometry3Sharp** and **Windows 3D Builder**. Multithreaded, with a multi-step repair pipeline that builds on each step's progress. Files are repaired in-place with automatic backup safety.
 
 > **[Download the latest release here](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)**
 
@@ -14,13 +14,14 @@ A Windows tool that batch-repairs 3D printing STL files using the same repair en
 
 1. Install [Microsoft 3D Builder](https://apps.microsoft.com/detail/9wzdncrfj3t6) from the Microsoft Store ([alternative download](https://3d-builder.en.uptodown.com/windows))
 2. Download `MeshMedic.exe` from [Releases](../../releases)
-3. Double-click it, pick a folder, and click **Start Repair**
+3. Double-click it, pick a folder, and click **Scan Folders**
 
 You can also use it from the command line:
 
+```
 MeshMedic "C:\My Models\Minis"
 MeshMedic "C:\Models" --timeout 120
-
+```
 
 Use the built-in **Install** button to add Mesh Medic to your PATH for terminal access anywhere.
 
@@ -36,20 +37,30 @@ Use the built-in **Install** button to add Mesh Medic to your PATH for terminal 
 
 ## Features
 
-- **Batch repair** — processes entire folders of STL files
+- **Multithreaded** — repairs files in parallel across all CPU cores (configurable)
+- **Multi-step pipeline** — geometry3Sharp pre-repair, then 3D Builder. Each step builds on the last
+- **Tuned for figurines** — tolerances calibrated for high-res resin printers, preserves thin supports and fine detail
+- **Batch repair** — processes entire folders and subfolders of STL files
 - **Safe backups** — originals are never lost, even on crash
+- **Crash recovery** — resumes interrupted batches on next launch
 - **Smart skip** — already-valid files are left untouched
-- **Repair log** — tracks what's been fixed so re-runs skip processed files
-- **Multiple strategies** — falls back automatically if one repair method fails
-- **GUI** — progress bar, live log, color-coded results, dark/light theme
+- **3 brand themes** — Remerlinds, Bird, and Henchman with light/dark mode
+- **8 languages** — DE, FR, ES, IT, PT-BR, JA, KO, ZH with auto-detection
+- **Live thread view** — see what each core is working on in real time
 
 ---
 
 ## Requirements
 
-- [Microsoft 3D Builder](https://apps.microsoft.com/detail/9wzdncrfj3t6)
+- [Microsoft 3D Builder](https://apps.microsoft.com/detail/9wzdncrfj3t6) (app checks on startup)
 - Windows 10 (build 19041+)
 - .NET 8.0 runtime (included in release)
+
+---
+
+## Privacy
+
+Mesh Medic sends a single anonymous analytics ping on launch (random ID + app version). No file names, no personal data. If the app crashes, you're asked before any report is sent.
 
 ---
 
