@@ -6,6 +6,10 @@
 [![Latest Release](https://img.shields.io/github/v/release/RemindZ/Mesh-Medic-Releases?style=for-the-badge&logo=github&label=Latest%20Release&color=green)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)
 [![VirusTotal Scan](https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=for-the-badge&logo=virustotal)](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection)
 
+<!-- The VirusTotal badge above and the link in the Security section are pinned to the
+     v2.3.0 file hash. Update both when publishing a new release. -->
+
+
 Point it at a folder. It finds every STL and OBJ inside, leaves the healthy ones alone,
 and repairs the rest across all your CPU cores. Two engines do the work: geometry3Sharp
 for speed, and the Windows 3D Builder engine for the stubborn ones.
@@ -37,9 +41,7 @@ automated.
 3. Extract `MeshMedic.exe`, double-click it, pick a folder, and hit **Scan Folders**
 
 No installer, no account, no config file.
-<img width="780" height="920" alt="image" src="" />
 
-<!-- SCREENSHOT SLOT: swap the three URLs below for the new shots -->
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c2354b80-2c20-4320-9611-fe5fb590799a" width="32%" />
   <img src="https://github.com/user-attachments/assets/35c72aed-652d-4ba4-8fa5-cf9fba10d28a" width="32%" />
@@ -136,19 +138,10 @@ you chose to submit, and nothing you did not.
 
 ## Security
 
-Releases are unsigned, so Windows SmartScreen may warn you before running the app.
-
-Source and build instructions live in
-[RemindZ/Mesh-Medic](https://github.com/RemindZ/Mesh-Medic). Public binaries are published
-separately in
-[RemindZ/Mesh-Medic-Releases](https://github.com/RemindZ/Mesh-Medic-Releases/releases).
-Maintainers should follow [the release checklist](docs/RELEASING.md).
-
----
-
-*With love by [remerlinds.com](https://remerlinds.com)*
-
-This application is unsigned, so some antivirus engines may flag it. A full [VirusTotal scan report](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection) is available for transparency.
+Releases are unsigned, so Windows SmartScreen may warn you before running the app, and
+some antivirus engines may flag it for the same reason. The full
+[VirusTotal scan report](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection)
+is public, so you can check the binary yourself rather than take our word for it.
 
 ---
 
