@@ -16,7 +16,11 @@ for speed, and the Windows 3D Builder engine for the stubborn ones.
 
 > ### **[Download the latest release](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)**
 
-<!-- SCREENSHOT SLOT: hero shot, full width -->
+## See Mesh Medic turn a folder into one visible batch
+
+https://github.com/user-attachments/assets/d4298bee-1cb9-434a-b4a3-01df7c018cba
+
+*Watch with sound. 48.8-second narrated overview using genuine Mesh Medic footage and a labelled synthetic STL run.*
 
 ---
 
