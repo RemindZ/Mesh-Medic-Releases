@@ -1,151 +1,136 @@
 # Mesh Medic
 
-**Batch-repair STL and OBJ files for 3D printing, instead of fixing them one at a time.**
+**Check a whole STL or OBJ kit before one bad mesh reaches your slicer.**
 
-[![Download Mesh Medic](https://img.shields.io/github/downloads/RemindZ/Mesh-Medic-Releases/total?style=for-the-badge&logo=github&label=Downloads&color=blue)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)
-[![Latest Release](https://img.shields.io/github/v/release/RemindZ/Mesh-Medic-Releases?style=for-the-badge&logo=github&label=Latest%20Release&color=green)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)
-[![VirusTotal Scan](https://img.shields.io/badge/VirusTotal-Clean-brightgreen?style=for-the-badge&logo=virustotal)](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection)
+[![Windows 10+](https://img.shields.io/badge/Windows-10%2B-21c7d9?style=for-the-badge&logo=windows)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
+[![STL + OBJ](https://img.shields.io/badge/Meshes-STL%20%2B%20OBJ-4ba3e3?style=for-the-badge)](#formats-and-output)
+[![Freeware](https://img.shields.io/badge/Use-Freeware-7ec8a0?style=for-the-badge)](LICENSE)
 
-<!-- The VirusTotal badge above and the link in the Security section are pinned to the
-     v2.3.0 file hash. Update both when publishing a new release. -->
+> **[Download Mesh Medic v2.3.1 for Windows](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.3.1/MeshMedic-v2.3.1.zip)**
+>
+> The link above downloads the Mesh Medic app—not the separate MeshFix engine release. No installer or account required.
 
-
-Point it at a folder. It finds every STL and OBJ inside, leaves the healthy ones alone,
-and repairs the rest across all your CPU cores. Two engines do the work: geometry3Sharp
-for speed, and the Windows 3D Builder engine for the stubborn ones.
-
-> ### **[Download the latest release](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)**
-
-## See Mesh Medic turn a folder into one visible batch
+## Watch it work
 
 https://github.com/user-attachments/assets/d4298bee-1cb9-434a-b4a3-01df7c018cba
 
-*Watch with sound. 48.8-second narrated overview using genuine Mesh Medic footage and a labelled synthetic STL run.*
+*Watch with sound. 48.8 seconds of genuine Mesh Medic v2.5 footage using a labelled synthetic STL run. The currently published app download is v2.3.1; the video and screenshots show the v2.5 interface.*
 
----
+A slicer warning can turn a downloaded kit into a file-by-file loop: open, check, repair,
+save, repeat. Mesh Medic makes that one visible Windows batch. Point it at a folder and it
+scans every STL and OBJ below it, leaves healthy files alone in Automatic mode, and sends
+damaged meshes through a validated repair path.
 
-## Why you'd want it
+## From folder to result
 
-You download a model and your slicer refuses to touch it. Or it slices fine and the print
-comes out with a hole in the side, or a wall that just isn't there.
+1. **Drop in a kit.** Choose a folder or drag it into the app; subfolders are included.
+2. **Scan once.** Automatic mode separates healthy meshes from the files that need work.
+3. **Repair without the loop.** Start the batch and see active workers as the app processes
+   the damaged files.
+4. **Review every outcome.** The completion view shows what was valid, repaired, skipped,
+   or still needs attention.
 
-That's usually broken geometry: holes, flipped normals, self-intersections, duplicate
-vertices. 3D Builder does fix it, but one file at a time, by hand, and a kit can be forty
-files. If you have ever sat there opening and re-saving STLs one by one, this is that job,
-automated.
+<p align="center">
+  <img src="docs/images/scan.png" width="32%" alt="Mesh Medic scanning a 104-file model-kit folder" />
+  <img src="docs/images/repair.png" width="32%" alt="Mesh Medic showing four active repair workers" />
+  <img src="docs/images/results.png" width="32%" alt="Mesh Medic completion summary with per-engine file outcomes" />
+</p>
 
----
+## Why use it?
+
+- **Batch triage for miniature kits.** Check whole STL and OBJ folders instead of opening
+  every model in 3D Builder.
+- **Healthy files stay healthy.** In Automatic mode, valid meshes are left untouched.
+- **Visible work, not a black box.** Follow the live worker view and review the final status
+  for every file.
+- **Built for real folders.** Use configurable parallel workers, with scale-aware tolerances
+  derived from each mesh rather than one fixed unit assumption.
+
+## Repair engines
+
+Mesh Medic v2.3.1 uses a progressive path: **geometry3Sharp → Windows 3D Builder Quick Fix
+→ Windows 3D Builder Full Fix**. It stops at the first verified result, so the heavier
+fallbacks are only used when earlier work does not pass.
+
+[MeshFix 2.1](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/meshfix-2.1) is a
+separately published optional GPL-3 engine release by Marco Attene / IMATI-GE-CNR. Its
+release contains the binary, SHA-256 checksum, matching source archive, and GPL-3 license.
+It is not integrated into v2.3.1. Downloading it alone does not install Mesh Medic.
+
+## Repairs have to pass before they count
+
+Mesh Medic does not treat an engine exit code as proof of a good result.
+
+- Each engine writes to a uniquely named staging file.
+- A candidate is validated before it can replace the original.
+- In-place repair creates a `.backup` first; a failure or cancellation restores it.
+- Converted output never silently overwrites an existing destination.
+- If a batch is interrupted, the next launch can resume it.
+
+## Formats and output
+
+| Input | Automatic output | Forced output |
+|---|---|---|
+| STL | Keeps STL | STL or sibling OBJ |
+| OBJ | Keeps OBJ | OBJ or sibling STL |
+
+Mesh Medic reads binary and ASCII STL. For OBJ, it preserves material libraries, material
+scopes, object/group/smoothing scopes, and relative texture sidecars where the repaired
+topology allows it. **Caveat:** rebuilding topology can lose exact UV references, so review
+OBJ results before relying on their texture mapping.
 
 ## Quick start
 
-1. Install [Microsoft 3D Builder](https://apps.microsoft.com/detail/9wzdncrfj3t6) from the
-   Microsoft Store ([alternative download](https://3d-builder.en.uptodown.com/windows))
-2. Download the latest `.zip` from
-   [Releases](https://github.com/RemindZ/Mesh-Medic-Releases/releases/latest)
-3. Extract `MeshMedic.exe`, double-click it, pick a folder, and hit **Scan Folders**
+1. Download and extract [Mesh Medic v2.3.1](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.3.1/MeshMedic-v2.3.1.zip).
+2. Run `MeshMedic.exe` and choose or drop a folder.
+3. Keep **Output format** on Automatic unless you deliberately want sibling conversions.
+4. Start the batch, then review the completion screen.
 
-No installer, no account, no config file.
+Install Microsoft 3D Builder for the Windows repair fallbacks. The v2.3.1 app checks for it
+on startup. See the [app release page](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
+for download and setup information.
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/c2354b80-2c20-4320-9611-fe5fb590799a" width="32%" />
-  <img src="https://github.com/user-attachments/assets/35c72aed-652d-4ba4-8fa5-cf9fba10d28a" width="32%" />
-  <img src="https://github.com/user-attachments/assets/04d800ce-9f9a-46cf-937a-76c93333dd19" width="32%" />
-</p>
+## Command line
 
----
-
-## What it does
-
-### Fixes things
-
-- **Two engines, in order.** geometry3Sharp goes first because it is fast. Anything it
-  cannot fix cleanly gets handed to the Windows 3D Builder engine, Quick Fix and then
-  Full Fix.
-- **Scale-aware.** Tolerances come from each mesh's own coordinate scale, so thin supports
-  and fine detail survive instead of being smoothed away.
-- **Skips what is already fine.** Healthy files are left untouched, not re-saved.
-- **Whole folders**, subfolders included.
-
-### Does not lose your files
-
-- **Repairs are transactional.** Every engine writes to a staging file that gets validated
-  before it replaces your original. If the check fails, your file stays exactly as it was.
-- **Never silently overwrites.** A converted output will not clobber a file already
-  sitting at the destination.
-- **Survives a crash.** Interrupted batches pick up where they left off on next launch,
-  and a leftover backup gets restored.
-
-### Handles your formats
-
-- **Output modes.** Automatic keeps the source extension, or force `.stl` or `.obj` and
-  get sibling converted files.
-- **OBJ preservation.** `mtllib`, material scopes, `.mtl` files, and relative texture
-  sidecars are kept where possible. Worth knowing: repaired or rebuilt topology can lose
-  exact UV mapping.
-
-### Shows its work
-
-- **Multithreaded** across as many cores as you want to give it.
-- **Live thread view**, so you can watch which file each core is chewing on in real time.
-
-### Looks how you like
-
-- **Three themes** (Remerlinds, Bird, Henchman), each with light and dark mode, all
-  meeting WCAG AA contrast.
-- **Nine languages.** English plus DE, FR, ES, IT, PT-BR, JA, KO and ZH, auto-detected
-  from your system.
-
----
-
-## From the command line
-
-```
-MeshMedic "C:\My Models\Minis"
+```powershell
+MeshMedic "C:\My Models\Miniature Kit"
 MeshMedic "C:\Models" --timeout 120
 MeshMedic "C:\Models" --output-format obj
 ```
 
-`--output-format` takes `auto`, `stl`, or `obj`. `--timeout` is per file, in seconds. The
-in-app **Install** button adds Mesh Medic to your PATH so you can call it from any
-terminal.
-
----
+`--output-format` accepts `auto`, `stl`, or `obj`. `--timeout` is per file in seconds. The
+in-app PATH installer lets you call `MeshMedic` from any terminal.
 
 ## Requirements
 
 - Windows 10 build 19041 or newer
-- [Microsoft 3D Builder](https://apps.microsoft.com/detail/9wzdncrfj3t6), which the app
-  checks for on startup
-- .NET 8.0 runtime, already bundled in the release
+- x64 processor
+- Microsoft 3D Builder for the final repair fallbacks
+- .NET 8 runtime, bundled in the release
 
----
+## Languages and themes
 
-## Something broken? Missing a feature?
-
-Hit the **shield button in the top right** of the app to open the feedback panel. Bug
-reports, feature requests, "this bit is confusing", it all comes straight to us and it is
-the fastest way to get something onto the list. We read every one.
-
----
+Mesh Medic has three visual themes (Remerlinds, Bird, and Henchman), each with light and dark
+modes. The interface detects your system language and supports English, German, French,
+Spanish, Italian, Brazilian Portuguese, Japanese, Korean, and Simplified Chinese.
 
 ## Privacy
 
-On launch, Mesh Medic sends a persistent randomly generated client ID and the app version
-for basic usage counts. Cloudflare receives the source IP and uses it for per-IP rate
-limiting.
+Mesh Medic does not send model names, file paths, or arbitrary exception text in diagnostic
+payloads. Crash metadata is sent only after you opt in. Feedback contains only the text you
+choose to submit. Basic usage counting sends a persistent random client ID and app version;
+Cloudflare receives the source IP for rate limiting.
 
-Diagnostic and crash payloads contain no model names, no file paths, and no arbitrary
-exception text. Crash metadata is sent only after you opt in. Feedback includes the text
-you chose to submit, and nothing you did not.
+## Security and availability
 
----
+Mesh Medic releases are unsigned. Windows SmartScreen or antivirus software may warn before
+the app runs. The v2.3.1 release page is the authoritative app download and publishes the
+current ZIP; review it before running any downloaded software.
 
-## Security
+## Feedback
 
-Releases are unsigned, so Windows SmartScreen may warn you before running the app, and
-some antivirus engines may flag it for the same reason. The full
-[VirusTotal scan report](https://www.virustotal.com/gui/file/f2b1ccb852ec2b3e50e6ad19819991c60d7df50a5cef05fd7b8adf8d22ce8815/detection)
-is public, so you can check the binary yourself rather than take our word for it.
+Use the shield button in the app to send a bug report, feature request, or confusing workflow.
+Please include only information you are comfortable sharing.
 
 ---
 
