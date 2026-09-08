@@ -2,6 +2,7 @@
 
 **Check a whole STL or OBJ kit before one bad mesh reaches your slicer.**
 
+[![Downloads](https://img.shields.io/github/downloads/RemindZ/Mesh-Medic-Releases/total?style=for-the-badge&logo=github&label=Downloads&color=blue)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
 [![Windows 10+](https://img.shields.io/badge/Windows-10%2B-21c7d9?style=for-the-badge&logo=windows)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
 [![STL + OBJ](https://img.shields.io/badge/Meshes-STL%20%2B%20OBJ-4ba3e3?style=for-the-badge)](#formats-and-output)
 [![Freeware](https://img.shields.io/badge/Use-Freeware-7ec8a0?style=for-the-badge)](LICENSE)
