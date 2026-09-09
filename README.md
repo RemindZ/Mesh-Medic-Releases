@@ -2,12 +2,12 @@
 
 **Check a whole STL or OBJ kit before one bad mesh reaches your slicer.**
 
-[![Downloads](https://img.shields.io/github/downloads/RemindZ/Mesh-Medic-Releases/total?style=for-the-badge&logo=github&label=Downloads&color=blue)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
-[![Windows 10+](https://img.shields.io/badge/Windows-10%2B-21c7d9?style=for-the-badge&logo=windows)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
+[![Downloads](https://img.shields.io/github/downloads/RemindZ/Mesh-Medic-Releases/total?style=for-the-badge&logo=github&label=Downloads&color=blue)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.5.0)
+[![Windows 10+](https://img.shields.io/badge/Windows-10%2B-21c7d9?style=for-the-badge&logo=windows)](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.5.0)
 [![STL + OBJ](https://img.shields.io/badge/Meshes-STL%20%2B%20OBJ-4ba3e3?style=for-the-badge)](#formats-and-output)
 [![Freeware](https://img.shields.io/badge/Use-Freeware-7ec8a0?style=for-the-badge)](LICENSE)
 
-> **[Download Mesh Medic v2.3.1 for Windows](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.3.1/MeshMedic-v2.3.1.zip)**
+> **[Download Mesh Medic v2.5.0 for Windows](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.5.0/MeshMedic-v2.5.0.zip)**
 >
 > The link above downloads the Mesh Medic app—not the separate MeshFix engine release. No installer or account required.
 
@@ -15,7 +15,7 @@
 
 https://github.com/user-attachments/assets/d4298bee-1cb9-434a-b4a3-01df7c018cba
 
-*Watch with sound. 48.8 seconds of genuine Mesh Medic v2.5 footage using a labelled synthetic STL run. The currently published app download is v2.3.1; the video and screenshots show the v2.5 interface.*
+*Watch with sound. 48.8 seconds of genuine Mesh Medic v2.5 footage using a labelled synthetic STL run.*
 
 A slicer warning can turn a downloaded kit into a file-by-file loop: open, check, repair,
 save, repeat. Mesh Medic makes that one visible Windows batch. Point it at a folder and it
@@ -49,14 +49,29 @@ damaged meshes through a validated repair path.
 
 ## Repair engines
 
-Mesh Medic v2.3.1 uses a progressive path: **geometry3Sharp → Windows 3D Builder Quick Fix
-→ Windows 3D Builder Full Fix**. It stops at the first verified result, so the heavier
-fallbacks are only used when earlier work does not pass.
+Mesh Medic v2.5.0 uses a progressive path: **geometry3Sharp → MeshFix → Windows 3D Builder
+Quick Fix → Windows 3D Builder Full Fix**. It stops at the first verified result, so the
+heavier fallbacks are only used when earlier work does not pass.
 
-[MeshFix 2.1](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/meshfix-2.1) is a
-separately published optional GPL-3 engine release by Marco Attene / IMATI-GE-CNR. Its
-release contains the binary, SHA-256 checksum, matching source archive, and GPL-3 license.
-It is not integrated into v2.3.1. Downloading it alone does not install Mesh Medic.
+[MeshFix 2.1](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/meshfix-2.1) is an
+optional GPL-3 engine by Marco Attene / IMATI-GE-CNR, downloaded separately on first use.
+Mesh Medic checks its pinned SHA-256 before running it as a separate process. If MeshFix
+is unavailable, the app continues to the Windows fallbacks. The engine release includes
+its binary, checksum, corresponding source, and license; downloading it alone does not
+install Mesh Medic.
+
+## New in v2.5
+
+- **Another chance to repair difficult files.** MeshFix runs between g3 and the Windows
+  fallbacks, with component-preservation checks and reported removal of eligible tiny debris.
+- **In-app updates.** Download a newer app version from the update prompt. The updater
+  verifies the ZIP against its published SHA-256 before replacement.
+- **Visible engine availability.** Check MeshFix status and access its install, source,
+  and license links from the home screen.
+
+See the [v2.5.0 changelog](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.5.0)
+for details and limitations. Engine totals can show zero after a resumed batch; check the
+per-file repair status for outcomes.
 
 ## Repairs have to pass before they count
 
@@ -82,25 +97,24 @@ OBJ results before relying on their texture mapping.
 
 ## Quick start
 
-1. Download and extract [Mesh Medic v2.3.1](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.3.1/MeshMedic-v2.3.1.zip).
+1. Download and extract [Mesh Medic v2.5.0](https://github.com/RemindZ/Mesh-Medic-Releases/releases/download/v2.5.0/MeshMedic-v2.5.0.zip).
 2. Run `MeshMedic.exe` and choose or drop a folder.
 3. Keep **Output format** on Automatic unless you deliberately want sibling conversions.
 4. Start the batch, then review the completion screen.
 
-Install Microsoft 3D Builder for the Windows repair fallbacks. The v2.3.1 app checks for it
-on startup. See the [app release page](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.3.1)
+Install Microsoft 3D Builder for the Windows repair fallbacks. The v2.5.0 app checks for it
+on startup. See the [app release page](https://github.com/RemindZ/Mesh-Medic-Releases/releases/tag/v2.5.0)
 for download and setup information.
 
 ## Command line
 
 ```powershell
 MeshMedic "C:\My Models\Miniature Kit"
-MeshMedic "C:\Models" --timeout 120
 MeshMedic "C:\Models" --output-format obj
 ```
 
-`--output-format` accepts `auto`, `stl`, or `obj`. `--timeout` is per file in seconds. The
-in-app PATH installer lets you call `MeshMedic` from any terminal.
+`--output-format` accepts `auto`, `stl`, or `obj`. The in-app PATH installer lets you call
+`MeshMedic` from any terminal.
 
 ## Requirements
 
@@ -125,8 +139,10 @@ Cloudflare receives the source IP for rate limiting.
 ## Security and availability
 
 Mesh Medic releases are unsigned. Windows SmartScreen or antivirus software may warn before
-the app runs. The v2.3.1 release page is the authoritative app download and publishes the
-current ZIP; review it before running any downloaded software.
+the app runs. The v2.5.0 release page is the authoritative app download and publishes the
+ZIP and its SHA-256 checksum. The checksum verifies download integrity; it is not a digital
+signature or an antivirus verdict. The ZIP contains the obfuscated application executable,
+not private source code, and is not password-encrypted.
 
 ## Feedback
 
